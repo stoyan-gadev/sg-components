@@ -1,1 +1,1 @@
-# s-components
+# sg-components
