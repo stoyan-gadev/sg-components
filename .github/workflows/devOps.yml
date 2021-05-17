@@ -2,7 +2,6 @@ name: Commerce Components CI/CD
 
 env:
   NODE_VERSION: '12.x'
-  AZURE_WEBAPP_NAME:  # the app service name
   PACKAGE_NAME: "build" # name of build compressed file
   PACKAGE_PATH: "./.build/" # build path
 
@@ -25,7 +24,7 @@ jobs:
         always-auth: true
         node-version: ${{ env.NODE_VERSION }} 
     - name: install dependencies
-      run: npm ci
+      run: npm install
       env:
         NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
     - name: build project
