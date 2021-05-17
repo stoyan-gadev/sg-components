@@ -1,5 +1,4 @@
-name: Commerce Components CI/CD
-
+name: CI/CD
 env:
   NODE_VERSION: '12.x'
   PACKAGE_NAME: "build" # name of build compressed file
@@ -36,11 +35,8 @@ jobs:
       run: echo 'Deploy to Azure'
 
   deploy-int:
-    runs-on: [self-hosted, linux]
+    runs-on: ubuntu-latest
     needs: [build]
-    environment:
-      name: INT
-      url: "https://aroemen-cicd-int.ltt-qa-ase.p.azurewebsites.net"
     steps:
       - name: test
         run: echo 'Deploy to int'
