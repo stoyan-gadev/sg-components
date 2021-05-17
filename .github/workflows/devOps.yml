@@ -5,7 +5,6 @@ env:
   AZURE_WEBAPP_NAME:  # the app service name
   PACKAGE_NAME: "build" # name of build compressed file
   PACKAGE_PATH: "./.build/" # build path
-  DOTNET_VERSION: "5.0.103" # the dot net version to use
 
 on:
   push:
@@ -24,25 +23,18 @@ jobs:
       uses: actions/setup-node@v1
       with:
         always-auth: true
-        node-version: ${{ env.NODE_VERSION }}
+        node-version: ${{ env.NODE_VERSION }} 
     - name: install dependencies
       run: npm ci
       env:
         NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
     - name: build project
-      run: |
-        npm run build-debug-prerendered
-        npm run build-release-prerendered
-        npm run version
+      run: echo 'Run'
     - name: run tests
-      run: npm run test
+      run: echo 'Run tests'
 
-   - name: 'Deploy to Azure WebApp'
-      uses: azure/webapps-deploy@v2
-      with:
-        app-name: ${{ env.AZURE_WEBAPP_NAME }}
-        publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-        package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+    - name: Deploy to Azure WebApp
+      run: echo 'Deploy to Azure'
 
   deploy-int:
     runs-on: [self-hosted, linux]
@@ -51,104 +43,5 @@ jobs:
       name: INT
       url: "https://aroemen-cicd-int.ltt-qa-ase.p.azurewebsites.net"
     steps:
-      - uses: xembly/agent-zero@v1
-
-      - uses: actions/download-artifact@v2
-        if: startsWith(github.ref, 'refs/tags/v') == false
-        with:
-          name: ${{ env.PACKAGE_NAME }}
-          path: .
-
-      - uses: i3h/download-release-asset@v1
-        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
-        with:
-          owner: ${{ github.repository_owner }}
-          repo: ${{ github.event.repository.name }}
-          tag: ${{ env.REF_NAME }}
-          file: ${{ env.PACKAGE_NAME }}.zip
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - uses: azure/webapps-deploy@v2
-        with:
-          app-name: ${{ env.AZURE_WEBAPP_NAME }}
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          package: ${{ env.PACKAGE_NAME }}.zip
-
-  deploy-qa:
-    if: github.event_name != 'pull_request'
-    runs-on: [self-hosted, linux]
-    needs: [build]
-    environment:
-      name: QA
-      url: "https://aroemen-cicd-qa.ltt-qa-ase.p.azurewebsites.net"
-    steps:
-      - uses: xembly/agent-zero@v1
-
-      - uses: actions/download-artifact@v2
-        if: startsWith(github.ref, 'refs/tags/v') == false
-        with:
-          name: ${{ env.PACKAGE_NAME }}
-          path: .
-
-      - uses: i3h/download-release-asset@v1
-        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
-        with:
-          owner: ${{ github.repository_owner }}
-          repo: ${{ github.event.repository.name }}
-          tag: ${{ env.REF_NAME }}
-          file: ${{ env.PACKAGE_NAME }}.zip
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - uses: azure/webapps-deploy@v2
-        with:
-          app-name: ${{ env.AZURE_WEBAPP_NAME }}
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          package: ${{ env.PACKAGE_NAME }}.zip
-
-  deploy-stg:
-    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
-    runs-on: [self-hosted, linux]
-    needs: [build]
-    environment:
-      name: STG
-      url: "https://aroemen-cicd-stg.ltt-qa-ase.p.azurewebsites.net"
-    steps:
-      - uses: xembly/agent-zero@v1
-
-      - uses: i3h/download-release-asset@v1
-        with:
-          owner: ${{ github.repository_owner }}
-          repo: ${{ github.event.repository.name }}
-          tag: ${{ env.REF_NAME }}
-          file: ${{ env.PACKAGE_NAME }}.zip
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - uses: azure/webapps-deploy@v2
-        with:
-          app-name: ${{ env.AZURE_WEBAPP_NAME }}
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          package: ${{ env.PACKAGE_NAME }}.zip
-
-  deploy-prd:
-    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
-    runs-on: [self-hosted, linux]
-    needs: [deploy-stg]
-    environment:
-      name: PRD
-      url: "https://aroemen-cicd-stg.ltt-qa-ase.p.azurewebsites.net"
-    steps:
-      - uses: xembly/agent-zero@v1
-
-      - uses: i3h/download-release-asset@v1
-        with:
-          owner: ${{ github.repository_owner }}
-          repo: ${{ github.event.repository.name }}
-          tag: ${{ env.REF_NAME }}
-          file: ${{ env.PACKAGE_NAME }}.zip
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - uses: azure/webapps-deploy@v2
-        with:
-          app-name: ${{ env.AZURE_WEBAPP_NAME }}
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          package: ${{ env.PACKAGE_NAME }}.zip
+      - name: test
+        run: echo 'Deploy to int'
