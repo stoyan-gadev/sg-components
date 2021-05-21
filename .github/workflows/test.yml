@@ -5,15 +5,15 @@ on:
   pull_request:
     branches:
       - master
+env:
+  NODE_VERSION: "12.x"
+  IS_VALID: 1
 jobs:
   first-job:
     runs-on: ubuntu-latest
-    env:
-      ONE: 1
-      TWO: two
+    if: ${{ github.ref == 'refs/heads/main' }}
     steps:
       - name: Test
-        if: ${{ env.ONE == 1 }}
         run: |
           echo "${{ env.ONE }}"
           echo "${{ env.TWO }}"
