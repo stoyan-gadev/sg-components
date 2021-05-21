@@ -7,15 +7,13 @@ on:
       - master
 
 env:
-  one: 1
-  two: zwei
-  three: tres
+  ONE: 1
+  TWO: two
 
 jobs:
   first-job:
     runs-on: ubuntu-latest
     steps:
     - run: |
-        echo "${{ env.one }}"
-        echo "${{ env.two }}"
-        echo "${{ env.three }}"
+        echo "${{ env.ONE }}"
+        echo "${{ env.TWO }}"
