@@ -8,12 +8,14 @@ on:
 jobs:
   first-job:
     runs-on: ubuntu-latest
-    if: ${{ env.ONE }} == 1
-    steps:
-    - run: |
-        echo "${{ env.ONE }}"
-        echo "${{ env.TWO }}"
     env:
       ONE: 1
       TWO: two
+    steps:
+      - name: Test
+        if: ${{ env.ONE == 1 }}
+        run: |
+          echo "${{ env.ONE }}"
+          echo "${{ env.TWO }}"
+    
         
