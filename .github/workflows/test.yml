@@ -16,6 +16,6 @@ jobs:
     steps:
       - name: Test
         run: |
-          echo "${{ env.NODE_VERSION }}"
+          echo "$NODE_VERSION"
     
         
