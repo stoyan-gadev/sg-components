@@ -13,7 +13,7 @@ jobs:
     env:
       TEST: 1
     runs-on: ubuntu-latest
-    if: ${{ TEST == 1 }}
+    if: ${{ env.TEST == 1 }}
     steps:
       - name: Test
         if: ${{ env.IS_VALID == 1 }}
