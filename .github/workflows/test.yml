@@ -5,19 +5,15 @@ on:
   pull_request:
     branches:
       - master
-
-env:
-  ONE: 1
-  TWO: two
-
 jobs:
   first-job:
     runs-on: ubuntu-latest
-    if: $ONE == 1
+    if: ${{ env.ONE }} == 1
     steps:
     - run: |
         echo "${{ env.ONE }}"
         echo "${{ env.TWO }}"
     env:
-      TEST: ${{ env.ONE }}
+      ONE: 1
+      TWO: two
         
