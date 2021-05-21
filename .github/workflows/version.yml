@@ -11,14 +11,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
       - name: Create report file
         run: date +%s > report.txt
       - name: Commit report
         run: |
           git add report.txt
-          git config --global user.name 'stoyan-gadev'
+          git config --global user.name 'version-bump'
           git config --global user.email 'stoyan.gadev@gmail.com'
           git commit -am "Automated report"
           git push
