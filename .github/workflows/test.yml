@@ -11,9 +11,9 @@ env:
   TWO: two
 
 jobs:
-  if: ${{ env.ONE }} == 1
   first-job:
     runs-on: ubuntu-latest
+    if: ${{ env.ONE }} == 1
     steps:
     - run: |
         echo "${{ env.ONE }}"
