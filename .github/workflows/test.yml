@@ -10,7 +10,10 @@ on:
 
 jobs:
   first-job:
+    env:
+      TEST: 1
     runs-on: ubuntu-latest
+    if: ${TEST} == 1
     steps:
       - name: Test
         if: ${{ env.IS_VALID == 1 }}
