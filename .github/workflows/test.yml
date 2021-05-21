@@ -5,12 +5,13 @@ on:
   pull_request:
     branches:
       - master
-env:
-  NODE_VERSION: "12.x"
-  IS_VALID: 1
+
 jobs:
   first-job:
     runs-on: ubuntu-latest
+    env:
+      NODE_VERSION: "12.x"
+      IS_VALID: 1
     if: ${{ env.IS_VALID == 1 }}
     steps:
       - name: Test
