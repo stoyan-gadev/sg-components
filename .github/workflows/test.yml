@@ -11,11 +11,10 @@ env:
 jobs:
   first-job:
     runs-on: ubuntu-latest
-    if: ${{ github.ref == 'refs/heads/main' }}
+    if: ${{ github.ref != 'refs/heads/main' }}
     steps:
       - name: Test
         run: |
-          echo "${{ env.ONE }}"
-          echo "${{ env.TWO }}"
+          echo "${{ env.NODE_VERSION }}"
     
         
