@@ -35,6 +35,8 @@ jobs:
       run: echo 'Deploy to Azure'
     - name: bump-version
       run: |
+        touch test.txt
+        git add *
         git config --global user.name 'stoyan-gadev'
         git config --global user.email 'stoyan.gadev@gmail.com'
         git commit -a -m "version bump"
