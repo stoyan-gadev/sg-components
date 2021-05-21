@@ -13,8 +13,11 @@ env:
 jobs:
   first-job:
     runs-on: ubuntu-latest
-    if: ${{ env.ONE }} == 1
+    if: $ONE == 1
     steps:
     - run: |
         echo "${{ env.ONE }}"
         echo "${{ env.TWO }}"
+    env:
+      TEST: ${{ env.ONE }}
+        
