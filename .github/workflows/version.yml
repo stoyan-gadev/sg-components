@@ -12,7 +12,7 @@ on:
 jobs:
   report:
     runs-on: ubuntu-latest
-    if: ${{ ENABLE_RUN }}
+    if: ${{ env.ENABLE_RUN }}
     steps:
       - uses: actions/checkout@v2
       - name: Create report file
