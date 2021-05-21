@@ -1,6 +1,6 @@
 name: Version bump
 env: 
-  ENABLE_RUN: true
+  ENABLE_RUN: This is a test
   
 on:
   push:
@@ -12,13 +12,13 @@ on:
 jobs:
   report:
     runs-on: ubuntu-latest
-    if: ${{ env.ENABLE_RUN }}
     steps:
       - uses: actions/checkout@v2
       - name: Create report file
         run: date +%s > report.txt
       - name: Commit report
         run: |
+          echo "${{ env.ENABLE_RUN }}"
           git add report.txt
           git config --global user.name 'version-bump'
           git config --global user.email 'stoyan.gadev@gmail.com'
