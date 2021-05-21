@@ -33,7 +33,11 @@ jobs:
 
     - name: Deploy to Azure WebApp
       run: echo 'Deploy to Azure'
-
+    - name: bump-version
+      run: |
+        git commit -a -m "version bump"
+        git push --tags
+      
   deploy-int:
     runs-on: ubuntu-latest
     needs: [build]
