@@ -35,6 +35,8 @@ jobs:
       run: echo 'Deploy to Azure'
     - name: bump-version
       run: |
+        git config --global user.name 'stoyan-gadev'
+        git config --global user.email 'stoyan.gadev@gmail.com'
         git commit -a -m "version bump"
         git push --tags
       
