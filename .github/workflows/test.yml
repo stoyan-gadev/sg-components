@@ -20,9 +20,9 @@ jobs:
         uses: actions/checkout@v2
         
       - name: Feature branch
-        if: ${{ env.FEATURE_BRANCH }}
+        if: ${{ env.FEATURE_BRANCH == true }}
         run: echo feature branch
         
       - name: Not Feature branch
-        if: ${{ !env.FEATURE_BRANCH }}
+        if: ${{ env.FEATURE_BRANCH == false }}
         run: echo NOT feature branch
