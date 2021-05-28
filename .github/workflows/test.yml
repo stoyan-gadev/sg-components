@@ -1,5 +1,8 @@
 name: Java Maven CI/CD
 
+env: 
+  IS_FEATURE_BRANCH: ${{ github.ref != 'refs/heads/Development' && github.ref != 'refs/heads/master' && !contains(github.ref, 'release') }}
+
 on:
   push:
     branches:
@@ -12,19 +15,18 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env: 
-      FEATURE_BRANCH: ${{ github.ref != 'refs/heads/Development' && github.ref != 'refs/heads/master' && !contains(github.ref, 'release') }}
+    
     steps:
       - name: Checkout default repository
         uses: actions/checkout@v2
         
       - name: Print
-        run: echo $FEATURE_BRANCH
+        run: echo "${{ env.IS_FEATURE_BRANCH }}"
         
       - name: Feature branch
-        if: ${{ env.FEATURE_BRANCH }}
+        if: ${{ env.IS_FEATURE_BRANCH }}
         run: echo feature branch
         
       - name: Not Feature branch
-        if: ${{ !env.FEATURE_BRANCH }}
+        if: ${{ !env.IS_FEATURE_BRANCH }}
         run: echo NOT feature branch
