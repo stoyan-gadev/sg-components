@@ -22,7 +22,7 @@ jobs:
         run: echo $FEATURE_BRANCH
         
       - name: Feature branch
-        if: ${{ env.FEATURE_BRANCH }}
+        if: ${{ !env.FEATURE_BRANCH }}
         run: echo feature branch
         
       - name: Not Feature branch
