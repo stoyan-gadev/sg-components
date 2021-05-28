@@ -13,16 +13,15 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env: 
-      FEATURE_BRANCH: true
-      #FEATURE_BRANCH: ${{ github.ref != 'refs/heads/Development' && github.ref != 'refs/heads/master' && !contains(github.ref, 'release') }}
+      FEATURE_BRANCH: ${{ github.ref != 'refs/heads/Development' && github.ref != 'refs/heads/master' && !contains(github.ref, 'release') }}
     steps:
       - name: Checkout default repository
         uses: actions/checkout@v2
         
       - name: Feature branch
-        if: ${{ env.FEATURE_BRANCH == true }}
+        if: ${{ env.FEATURE_BRANCH }}
         run: echo feature branch
         
       - name: Not Feature branch
-        if: ${{ env.FEATURE_BRANCH != true }}
+        if: ${{ env.FEATURE_BRANCH }}
         run: echo NOT feature branch
