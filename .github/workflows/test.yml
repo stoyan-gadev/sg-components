@@ -1,7 +1,7 @@
 name: Java Maven CI/CD
 
 env: 
-  IS_FEATURE_BRANCH: ${{ github.ref != 'refs/heads/Development' && github.ref != 'refs/heads/master' && !contains(github.ref, 'release') }}
+  IS_FEATURE_BRANCH: ${{ github.ref != 'refs/heads/Development' && github.ref != 'refs/heads/master' && !contains(github.ref, 'main') }}
 
 on:
   push:
