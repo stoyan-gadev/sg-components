@@ -12,7 +12,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env: FEATURE_BRANCH: ${{ github.ref != 'refs/heads/Development' && github.ref != 'refs/heads/master' && !contains(github.ref, 'release') }}
+    env: 
+      FEATURE_BRANCH: ${{ github.ref != 'refs/heads/Development' && github.ref != 'refs/heads/master' && !contains(github.ref, 'release') }}
     steps:
       - name: Checkout default repository
         uses: actions/checkout@v2
